@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define out(x) cout<<x<<endl
+#define all(v) v.begin(),v.end()
+#define rep(i,n) for(ll i=0;i<(ll)(n);i++)
+template<class T> inline bool chmin(T& a, T b) {if(a > b){a = b; return true;} else {return false;}};
+template<class T> inline bool chmax(T& a, T b) {if(a < b){a = b; return true;} else {return false;}};
+const ll INF=(1LL<<60);
+const ll mod=998244353;
+using Graph = vector<vector<ll>>;
+
+int main() {
+    ll N;cin>>N;
+    map<ll,ll> m;
+    rep(i,N){
+        ll a,b;
+        cin>>a>>b;
+        m[a]++;
+        m[a+b]--;
+    }
+    vector<ll> count(N+1,0);
+    ll before=0;
+    ll now=0;
+    for(auto p:m){
+        count.at(now)+=p.first-before;
+        before=p.first;
+        now+=p.second;
+    }
+    for(ll i=1;i<=N;i++){
+        cout<<count.at(i);
+        if(i<N){
+            cout<<" ";
+        }
+    }
+    cout<<endl;
+}

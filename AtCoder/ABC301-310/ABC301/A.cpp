@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define ld long double
+#define out(x) cout<<x<<'\n'
+#define all(v) v.begin(),v.end()
+#define rep(i,n) for(int i=0;i<(ll)(n);i++)
+template<class T> inline bool chmin(T& a, T b) {if(a > b){a = b; return true;} else {return false;}};
+template<class T> inline bool chmax(T& a, T b) {if(a < b){a = b; return true;} else {return false;}};
+const ll INF=(1LL<<60);
+const ll mod=998244353;
+using Graph = vector<vector<ll>>;
+using Network = vector<vector<pair<ll,ll>>>;
+
+int main() {
+    ll N;cin>>N;
+    ll w = (N+1)/2;
+    string S;cin>>S;
+    ll t = 0;
+    ll a = 0;
+    rep(i, N){
+        if(S.at(i) == 'T'){
+            t++;
+        }
+        else{
+            a++;
+        }
+        if(t == w){
+            out("T");
+            return 0;
+        }
+        if(a == w){
+            out("A");
+            return 0;
+        }
+    }
+}
