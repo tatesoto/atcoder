@@ -70,5 +70,12 @@
         "thread": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.terminalRoot":"/mnt/",
+    "code-runner.executorMap": {
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+    },
+    "code-runner.preserveFocus": false,
 }

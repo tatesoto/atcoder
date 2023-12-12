@@ -9,21 +9,28 @@ template<class T> inline bool chmax(T& a, T b) {if(a < b){a = b; return true;} e
 const ll INF=(1LL<<60);
 const ll mod=998244353;
 
-int main() {
-    ll N,K;cin>>N>>K;
-    vector<ll> a(N);
-    rep(i,N) cin>>a.at(i);
-    ll left=-1;
-    ll right=pow(10,9);
-    while(abs(right-left)>1){
-        ll mid=(left+right)/2;
-        ll sum=0;
-        rep(i,N){
-            sum+=mid/a.at(i);
-        }
-        if(sum>=K) right=mid;
-        else left=mid;
-
+ll N, K;
+vector<ll> vec;
+bool check(ll x){
+    ll total = 0;
+    rep(i, N){
+        total += x / vec[i];
     }
-    out(right);
+    return total >= K;
+}
+
+
+int main() {
+    cin>>N>>K;
+    vec.resize(N);
+    rep(i, N) cin>>vec[i];
+
+    ll l = 0;
+    ll r = 1e9;
+    while(r-l > 1){
+        ll mid = (l+r)/2;
+        if(check(mid)) r = mid;
+        else l = mid;
+    }
+    out(r);
 }

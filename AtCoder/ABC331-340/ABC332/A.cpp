@@ -16,5 +16,5 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    out("Hello World!!");
 }
