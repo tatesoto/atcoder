@@ -16,5 +16,20 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    ll N;cin>>N;
+    Grid G(N);
+    rep(i,N) cin>>G[i];
+    vector<ll> ro(N), co(N);
+    rep(i, N){
+        rep(j, N){
+            if(G[i][j] == 'o') ro[i]++;
+            if(G[j][i] == 'o') co[i]++;
+        }
+    }
+    ll ans = 0;
+    rep(i, N)rep(j, N){
+        if(G[i][j] == 'x') continue;
+        ans += (ro[i]-1)*(co[j]-1);
+    }
+    out(ans);
 }

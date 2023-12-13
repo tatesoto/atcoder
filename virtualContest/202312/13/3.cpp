@@ -16,15 +16,10 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll D;cin>>D;
-    ll ans = INF;
-    for(ll x = 0; x*x <= D; x++){
-        ll sq = D - x*x;
-        ll z = sqrt(sq);
-        for(ll dy = -2; dy <= 2; dy++){
-            ll y = z + dy;
-            chmin(ans, abs(y*y + x*x - D));
-        }
-    }
-    out(ans);
+    string s, t;
+    cin >> s >> t;
+    sort(all(s));
+    sort(all(t), greater<char>());
+    if(s < t) out("Yes");
+    else out("No");
 }

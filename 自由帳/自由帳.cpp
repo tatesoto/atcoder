@@ -16,18 +16,11 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N;cin>>N;
-
-    auto judge = [&](ld mid){
-        return mid*mid*mid + mid <= N;
-    };
-
-    ld l = 0;
-    ld r = 100;
-    while(r-l > 1e-8){
-        ld mid = (l+r)/2;
-        if(judge(mid)) l = mid;
-        else r = mid;    
-    }
-    out(r);
+    ll N, S, K; cin >> N >> S >> K;
+    vector<ll> P(N), Q(N);
+    rep(i, N) cin >> P[i] >> Q[i]; 
+    ll sum = 0;
+    rep(i, N) sum += P[i]*Q[i];
+    if(sum >= S) out(sum);
+    else out(sum + K);
 }
