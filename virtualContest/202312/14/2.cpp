@@ -16,5 +16,27 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    ll N, M;cin>>N>>M;
+    vector<vector<bool>> meet(N, vector<bool>(N, false));
+    rep(i, M){
+        ll k;cin>>k;
+        vector<ll> A(k);
+        rep(j, k) cin>>A[j];
+        rep(j, k){
+            rep(l, k){
+                if(j == l) continue;
+                meet[A[j]-1][A[l]-1] = true;
+            }
+        }
+    }
+    rep(i, N){
+        rep(j, N){
+            if(i == j) continue;
+            if(!meet[i][j]){
+                out("No");
+                return 0;
+            }
+        }
+    }
+    out("Yes");
 }

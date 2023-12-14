@@ -16,5 +16,20 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    ll N, M, P;cin>>N>>M>>P;
+    vector<ll> A(N), B(M);
+    rep(i, N) cin>>A[i];
+    rep(i, M) cin>>B[i];
+    sort(all(A));
+    sort(all(B));
+    vector<ll> sumB(M+1, 0);
+    rep(i, M) sumB[i+1] = sumB[i] + B[i];
+    ll ans = 0;
+    rep(i, N){
+        ll a = A[i];
+        ll b = P - a;
+        ll k = distance(B.begin(), lower_bound(all(B), b));
+        ans += k * a + sumB[k] + (M-k) * P;
+    }
+    out(ans);
 }

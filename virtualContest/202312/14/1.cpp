@@ -16,5 +16,8 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    ll N;cin>>N;
+    ll x = 800*N;
+    ll y = (N/15)*200;
+    out(x-y);
 }

@@ -15,6 +15,20 @@ using Grid = vector<string>;
 const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
+ll gcd(ll a,ll b){
+    if(b==0){
+        return a;
+    }
+    else{
+        return gcd(b,a%b);
+    }
+}
+
 int main() {
-    
+    ll N, A, B;cin>>N>>A>>B;
+    auto sum = [&](ll m){
+        ll k = N/m;
+        return m*k*(k+1)/2;
+    };
+    out(sum(1) - sum(A) - sum(B) + sum(A*B/gcd(A, B)));
 }

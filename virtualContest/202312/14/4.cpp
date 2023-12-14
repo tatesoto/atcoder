@@ -16,5 +16,29 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    ll N, M;cin>>N>>M;
+    vector<vector<ll>> G(N, vector<ll>(N, -1));
+    rep(i, M){
+        ll A, B, C;cin>>A>>B>>C;
+        A--; B--;
+        G[A][B] = C;
+        G[B][A] = C;
+    }
+    ll ans = -1;
+    vector<ll> v(N);
+    rep(i, N) v[i] = i;
+    do{
+        ll sum = 0;
+        rep(i, N){
+            if(i == N-1) break;
+            ll from = v[i];
+            ll to = v[i+1];
+            if(G[from][to] == -1){
+                break;
+            }
+            sum += G[from][to];
+        }
+        chmax(ans, sum);
+    }while(next_permutation(all(v)));
+    out(ans);
 }
