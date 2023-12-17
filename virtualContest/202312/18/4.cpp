@@ -16,23 +16,27 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N, M;cin>>N>>M;
-    string s;cin>>s;
-    s.push_back('0');
-    ll ans = 0;
-    ll cnt1 = 0, cnt2 = 0;
-    rep(i, N+1){
-        if(s[i] == '0'){
-            chmax(ans, max(cnt1-M, 0LL)+cnt2);
-            cnt1 = 0;
-            cnt2 = 0;
-        }
-        else if(s[i] == '1'){
-            cnt1++;
-        }
-        else{
-            cnt2++;
+    ll N, X;cin>>N>>X;
+    Graph G(N);
+    rep(i, N){
+        ll l;cin>>l;
+        rep(j, l){
+            ll a;cin>>a;
+            G[i].push_back(a);
         }
     }
-    out(ans);
+    ll cnt = 0;
+    auto dfs = [&](auto self, ll i, ll product) -> void{
+        if(i == N){
+            if(product == X) cnt++;
+            return;
+        }
+        for(auto nx:G[i]){
+            if(X/nx < product) continue;
+            self(self, i+1, product*nx);
+        }
+    };
+
+    dfs(dfs, 0, 1);
+    out(cnt);
 }

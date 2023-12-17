@@ -16,5 +16,18 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    
+    ll K, G, M;cin>>K>>G>>M;
+    ll g = 0;
+    ll m = 0;
+    rep(i, K){
+        if(g == G) g = 0;
+        else if(m == 0) m = M;
+        else{
+            ll tmp = min(G-g, m);
+            g += tmp;
+            m -= tmp;
+        }
+    }
+    out(g);
+    out(m);
 }

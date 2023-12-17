@@ -17,22 +17,16 @@ const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
     ll N, M;cin>>N>>M;
-    string s;cin>>s;
-    s.push_back('0');
-    ll ans = 0;
-    ll cnt1 = 0, cnt2 = 0;
-    rep(i, N+1){
-        if(s[i] == '0'){
-            chmax(ans, max(cnt1-M, 0LL)+cnt2);
-            cnt1 = 0;
-            cnt2 = 0;
-        }
-        else if(s[i] == '1'){
-            cnt1++;
-        }
-        else{
-            cnt2++;
-        }
+    vector<ll> A(M);
+    rep(i, M) cin>>A[i], A[i]--;
+    set<pair<ll,ll>> st;
+    rep(i, N) st.insert({0, i+1});
+    vector<ll> v(N, 0);
+    rep(i, M){
+        st.erase({v[A[i]], A[i]+1});
+        v[A[i]]--;
+        st.insert({v[A[i]], A[i]+1});
+        auto p = *st.begin();
+        out(p.second);
     }
-    out(ans);
 }

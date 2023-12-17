@@ -16,23 +16,21 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N, M;cin>>N>>M;
-    string s;cin>>s;
-    s.push_back('0');
+    ll N, K;cin>>N>>K;
+    map<ll, ll> mp;
+    rep(i, N){
+        ll a;cin>>a;
+        mp[a]++;
+    }
     ll ans = 0;
-    ll cnt1 = 0, cnt2 = 0;
-    rep(i, N+1){
-        if(s[i] == '0'){
-            chmax(ans, max(cnt1-M, 0LL)+cnt2);
-            cnt1 = 0;
-            cnt2 = 0;
-        }
-        else if(s[i] == '1'){
-            cnt1++;
-        }
-        else{
-            cnt2++;
-        }
+    priority_queue<ll, vector<ll>, greater<ll>> pq;
+    for(auto p: mp){
+        pq.push(p.second);
+    }
+    while(pq.size() > K){
+        ll a = pq.top();
+        pq.pop();
+        ans += a;
     }
     out(ans);
 }

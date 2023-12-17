@@ -15,117 +15,44 @@ using Grid = vector<string>;
 const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
-vector<pair<ll,ll>> existvector(Grid G){
-    vector<pair<ll,ll>> res;
-    ll si, sj;
-    rep(i, 4){
-        rep(j, 4){
-            if(G[i][j] == '#'){
-                si = i;
-                sj = j;
-            }
-        }
-    }
-    res.push_back({si, sj});
-    vector<vector<bool>> seen(4, vector<bool>(4, false));
-    queue<pair<ll,ll>> q;
-    q.push({si, sj});
-    seen[si][sj] = true;
-    while(!q.empty()){
-        auto [x, y] = q.front();q.pop();
-        rep(dir, 4){
-            ll nx = x + dx[dir];
-            ll ny = y + dy[dir];
-            if(nx < 0 || nx >= 4 || ny < 0 || ny >= 4)continue;
-            if(G[nx][ny] == '.') continue;
-            if(seen[nx][ny]) continue;
-            res.push_back({nx-si, ny-sj});
-            seen[nx][ny] = true;
-            q.push({nx, ny});
-        } 
-    }
-    return res;
-}
-
-vector<vector<pair<ll,ll>>> exist;
-bool put(ll id, ll i, ll j, vector<vector<bool>> &judge){
-    auto [si, sj] = exist[id][0];
-    ll di = i - si, dj = j - sj;
-    for(auto p:exist[id]){
-        auto [ti, tj] = p;
-        ll ni = ti + di;
-        ll nj = tj + dj;
-        if(ni < 0 || ni >= 4 || nj < 0 || nj >= 4) return false;
-        if(judge[ni][nj]) return false;
-        judge[ni][nj] = true;
-    }
-    return true;
-}
-
 int main() {
-    vector<Grid> G(3);
-    rep(i, 3){
-        rep(j, 4){
-            string S;cin>>S;
-            G[i].push_back(S);
+    vector<Grid> P(3, Grid(4));
+    rep(i, 3)rep(j, 4) cin>>P[i][j];
+    auto rotate = [&](Grid g){
+        Grid res(4, string(4, '.'));
+        rep(i, 4)rep(j, 4){
+            res[j][3-i] = g[i][j];
         }
-    }
-    ll cnt = 0;
-    rep(i, 3){
-        rep(j, 4){
-            rep(k, 4){
-                if(G[i][j][k] == '#') cnt++;
+        return res;
+    };
+    auto put = [&](Grid &board, Grid g, ll x, ll y){
+        rep(i, 4)rep(j, 4){
+            if(g[i][j] == '#'){
+                if(x+i < 0 || y+j < 0 || x+i >= 4 || y+j >= 4) return false;
+                if(board[x+i][y+j] == '#') return false;
+                board[x+i][y+j] = '#';
             }
         }
-    }
-    if(cnt != 16){
-        out("No");
-        return 0;
-    }
-    exist.resize(12);
-    rep(i, 3){
-        exist[i] = existvector(G[i]);
-        rep(j, exist[i].size()){
-            auto p = exist[i][j];
-            if(i == 0){
-                exist[i+3].push_back(p);
-                exist[i+6].push_back(p);
-                exist[i+9].push_back(p);
-            }
-            auto [x, y] = p;
-            exist[i+3].push_back({-y, x});
-            exist[i+6].push_back({-x, -y});
-            exist[i+9].push_back({y, -x});
+        return true;
+    };
+    auto check = [&](Grid board){
+        rep(i, 4)rep(j, 4){
+            if(board[i][j] == '.') return false;
         }
-    }
-    rep(i, 4){
-        rep(j, 4){
-            rep(k, 4){
-                rep(l, 4){
-                    rep(m, 4){
-                        rep(n, 4){
-                            vector<vector<bool>> judge(4, vector<bool>(4, false));
-                            if(put(0, i, j, judge) && put(1, k, l, judge) && put(2, m, n, judge)){
-                                out("Yes");
-                                return 0;
-                            }
-                            judge.resize(4, vector<bool>(4, false));
-                            if(put(3, i, j, judge) && put(4, k, l, judge) && put(5, m, n, judge)){
-                                out("Yes");
-                                return 0;
-                            }
-                            judge.resize(4, vector<bool>(4, false));
-                            if(put(6, i, j, judge) && put(7, k, l, judge) && put(8, m, n, judge)){
-                                out("Yes");
-                                return 0;
-                            }
-                            judge.resize(4, vector<bool>(4, false));
-                            if(put(9, i, j, judge) && put(10, k, l, judge) && put(11, m, n, judge)){
-                                out("Yes");
-                                return 0;
-                            }
-                        }
-                    }
+        return true;
+    };
+    rep(rotb, 4){
+        P[1] = rotate(P[1]);
+        rep(rotc, 4){
+            P[2] = rotate(P[2]);
+            for(ll i = -3; i <= 3; i++)for(ll j = -3; j <= 3; j++)for(ll k = -3; k <= 3; k++)for(ll l = -3; l <= 3; l++)for(ll m = -3; m <= 3; m++)for(ll n = -3; n <= 3; n++){
+                Grid board(4, string(4, '.'));
+                if(!put(board, P[0], i, j)) continue;
+                if(!put(board, P[1], k, l)) continue;
+                if(!put(board, P[2], m, n)) continue;
+                if(check(board)){
+                    out("Yes");
+                    return 0;
                 }
             }
         }

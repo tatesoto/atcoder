@@ -16,23 +16,21 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N, M;cin>>N>>M;
-    string s;cin>>s;
-    s.push_back('0');
-    ll ans = 0;
-    ll cnt1 = 0, cnt2 = 0;
-    rep(i, N+1){
-        if(s[i] == '0'){
-            chmax(ans, max(cnt1-M, 0LL)+cnt2);
-            cnt1 = 0;
-            cnt2 = 0;
+    ll N;cin>>N;
+    vector<ll> A;
+    ll now = N;
+    while(now > 1){
+        rep(i, now-2){
+            A.push_back(now);
+            A.push_back(now-1);
         }
-        else if(s[i] == '1'){
-            cnt1++;
-        }
-        else{
-            cnt2++;
-        }
+        A.push_back(now);
+        now -= 2;
+        if(now <= 1) break;
     }
-    out(ans);
+    rep(i, N-2) A.push_back(i+1);
+    A.push_back(N);
+    A.push_back(N-1);
+    for(auto a : A) cout << a << " ";
+    cout << endl;
 }

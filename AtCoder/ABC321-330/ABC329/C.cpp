@@ -16,23 +16,23 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N, M;cin>>N>>M;
+    ll N;cin>>N;
     string s;cin>>s;
-    s.push_back('0');
-    ll ans = 0;
-    ll cnt1 = 0, cnt2 = 0;
-    rep(i, N+1){
-        if(s[i] == '0'){
-            chmax(ans, max(cnt1-M, 0LL)+cnt2);
-            cnt1 = 0;
-            cnt2 = 0;
-        }
-        else if(s[i] == '1'){
-            cnt1++;
+    s.push_back('$');
+    vector<ll> cnt(26, 0);
+    ll sec = 1;
+    rep(i, N){
+        if(s[i] == s[i+1]){
+            sec++;
         }
         else{
-            cnt2++;
+            chmax(cnt[s[i]-'a'], sec);
+            sec = 1;
         }
+    }
+    ll ans = 0;
+    rep(i, 26){
+        ans += cnt[i];
     }
     out(ans);
 }
