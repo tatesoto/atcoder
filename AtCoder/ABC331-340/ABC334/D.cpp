@@ -16,9 +16,25 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N;cin>>N;
-    vector<ll> a = {1, 2, 3, 4, 5};
-    vector<ll> b(1<<N);
-    auto iter = lower_bound(all(a), 6);
-    out(*iter);
+    ll N, Q;cin>>N>>Q;
+    vector<ll> R(N);
+    rep(i, N) cin>>R[i];
+    vector<ll> X(Q);
+    rep(i, Q) cin>>X[i];
+    sort(all(R));
+    vector<ll> sum(N+1, 0);
+    rep(i, N){
+        sum[i+1] = sum[i] + R[i];
+    }
+    auto query = [&](ll x){
+        ll l = 0, r = N + 1;
+        while(r - l > 1){
+            ll mid = (l+r)/2;
+            if(sum[mid] <= x) l = mid;
+            else r = mid;
+        }
+        out(l);
+        return;
+    };
+    rep(i, Q) query(X[i]);
 }

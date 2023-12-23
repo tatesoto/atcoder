@@ -16,9 +16,7 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N;cin>>N;
-    vector<ll> a = {1, 2, 3, 4, 5};
-    vector<ll> b(1<<N);
-    auto iter = lower_bound(all(a), 6);
-    out(*iter);
+    ll B, G;cin>>B>>G;
+    if(B > G) out("Bat");
+    else out("Glove");
 }

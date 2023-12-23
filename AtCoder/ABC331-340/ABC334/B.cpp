@@ -16,9 +16,17 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N;cin>>N;
-    vector<ll> a = {1, 2, 3, 4, 5};
-    vector<ll> b(1<<N);
-    auto iter = lower_bound(all(a), 6);
-    out(*iter);
+    ll A, M, L, R;cin>>A>>M>>L>>R;
+    L -= A;
+    R -= A;
+    auto findk = [&](ll x){
+        ll k = x/M;
+        for(ll i = -2; i <= 2; i++){
+            ll y = (k+i)*M;
+            if(y > x) return k+i;
+        }
+    };
+    ll ans = findk(R) - findk(L);
+    if(L % M == 0) ans++;
+    out(ans);
 }
