@@ -16,14 +16,26 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N, M, K;cin>>N>>M>>K;
+    auto f = [&](ll x, ll d) {
+        return (x + d - 1) / d;
+    };
+    auto gcd = [&] (auto self, ll a, ll b) {
+        if(a < b) swap(a, b);
+        if(b == 0) return a;
+        return self(self, b, a%b);
+    };
+    auto lcm = [&](ll a, ll b) {
+        return a / gcd(gcd, a, b)* b;
+    };
+    auto judge = [&](ll x) {
+        return f(x, N) + f(x, M) - 2*f(x, lcm(N, M)) >= K;
+    };
+    ll ng = 0, ok = 1e18;
+    while(ok - ng > 1) {
+        ll mid = (ok + ng) / 2;
+        if(judge(mid)) ok = mid;
+        else ng = mid;
     }
+    out(ok-1);
 }

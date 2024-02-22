@@ -16,14 +16,29 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
+    ll N;cin>>N;
+   vector<string> S(N);
+    rep(i, N) cin>>S[i];
+    vector<vector<ll>> dp(N + 1, vector<ll>(2, 0));
+    dp[0][0] = 1;
+    dp[0][1] = 1;
+    for(int i = 1; i <= N; i++){
+        if(S[i-1] == "AND") {
+            rep(j, 2) {
+                rep(x, 2) {
+                    ll nj = j & x;
+                    dp[i][nj] += dp[i-1][j];
+                }
+            }
+        }
+        else {
+            rep(j, 2) {
+                rep(x, 2) {
+                    ll nj = j | x;
+                    dp[i][nj] += dp[i-1][j];
+                }
+            }
         }
     }
+    out(dp[N][1]);
 }

@@ -16,14 +16,11 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N, D;cin>>N>>D;
+    ll cnt = 0;
+    rep(i, N){
+        ll x, y;cin>>x>>y;
+        if(x*x + y*y <= D*D) cnt++;
     }
+    out(cnt);
 }

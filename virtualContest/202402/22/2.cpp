@@ -16,14 +16,28 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
+    ll N;cin>>N;
+    auto isLine = [&](pair<ll,ll> p1, pair<ll,ll> p2, pair<ll,ll> p3) -> bool {
+        auto [x1, y1] = p1;
+        auto [x2, y2] = p2;
+        auto [x3, y3] = p3;
+        return (x1 - x2) * (y1 - y3) == (x1 - x3) * (y1 - y2);
+
+    };
+    vector<pair<ll,ll>> P(N);
+    rep(i, N) {
+        ll x, y;cin>>x>>y;
+        P[i] = {x, y};
+    }
+    rep(i, N) {
+        rep(j, i) {
+            rep(k, j) {
+                if(isLine(P[i], P[j], P[k])) {
+                    out("Yes");
+                    return 0;
+                }
+            }
         }
     }
+    out("No");
 }

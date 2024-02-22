@@ -11,29 +11,18 @@ const ll INF=(1LL<<60);
 const ll mod=998244353;
 using Graph = vector<vector<ll>>;
 using Network = vector<vector<pair<ll,ll>>>;
+using Grid = vector<string>;
+const vector<ll> dx = {0, 1, 0, -1};
+const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll H, W, N;cin>>H>>W>>N;
-    set<pair<ll,ll>> st;
-    rep(i, N){
+    ll N, M;cin>>N>>M;
+    Graph G(N);
+    rep(i, M){
         ll a, b;cin>>a>>b;
         a--;b--;
-        st.insert(make_pair(a, b));
+        G[a].push_back(b);
+        G[b].push_back(a);
     }
-    vector<vector<ll>> dp(H, vector<ll>(W, 0));
-    rep(i, H) dp[i][0] = (st.count({i, 0}))? 0 : 1;
-    rep(i, W) dp[0][i] = (st.count({0, i}))? 0 : 1;
-    for(int i = 1; i < H; i++){
-        for(int j = 1; j < W; j++){
-            if(st.count({i, j})) dp[i][j] = 0;
-            else dp[i][j] = min(min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]) + 1;
-        }
-    }
-    ll ans = 0;
-    rep(i, H){
-        rep(j, W){
-            ans += dp[i][j];
-        }
-    }
-    out(ans);
+    
 }

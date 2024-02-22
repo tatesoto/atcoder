@@ -16,14 +16,12 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N, L;cin>>N>>L;
+    vector<string> S(N);
+    rep(i, N) cin>>S[i];
+    sort(all(S));
+    rep(i, N){
+        cout<<S[i];
     }
+    cout<<endl;
 }

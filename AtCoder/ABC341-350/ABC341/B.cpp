@@ -16,14 +16,19 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N;cin>>N;
+    vector<ll> A(N);
+    rep(i, N) cin>>A[i];
+    vector<pair<ll,ll>> st(N-1);
+    rep(i, N-1) {
+        ll s, t;cin>>s>>t;
+        st[i] = {s, t};
     }
+    rep(i, N-1) {
+        auto [s, t] = st[i];
+        ll c = A[i]/s;
+        A[i] -= c*s;
+        A[i+1] += c*t;
+    }
+    out(A[N-1]);
 }

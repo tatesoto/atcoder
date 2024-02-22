@@ -16,14 +16,21 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
+    ll N, K;cin>>N>>K;
+    vector<ll> A(N);
+    rep(i, N) cin>>A[i];
+    auto judge = [&](ll x){
+        ll cnt = 0;
+        rep(i, N){
+            cnt += (A[i] + x - 1) / x - 1;
         }
+        return cnt <= K;
+    };
+    ll l = 0, r = INF;
+    while(r - l > 1){
+        ll mid = (l + r) / 2;
+        if(judge(mid)) r = mid;
+        else l = mid;
     }
+    out(r);
 }

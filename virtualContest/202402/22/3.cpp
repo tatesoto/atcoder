@@ -16,14 +16,20 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N, M;cin>>N>>M;
+    auto f = [&](ll x) {
+        ll m = M - 2*x;
+        if(m < 0) return false;
+        ll n = N + m/2;
+        if(n >= x) return true;
+        else return false;
+    };
+    ll ok = 0;
+    ll ng = INF;
+    while(abs(ok - ng) > 1) {
+        ll mid = (ok + ng) / 2;
+        if(f(mid)) ok = mid;
+        else ng = mid;
     }
+    out(ok);
 }

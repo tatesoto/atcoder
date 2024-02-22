@@ -16,14 +16,21 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N;cin>>N;
+    vector<ll> A(N);
+    rep(i, N) cin>>A[i];
+    auto label = [&](ll x){
+        if(x%4==0) return 2;
+        else if(x%2==0) return 1;
+        else return 0;
+    };
+    vector<ll> cnt(3);
+    rep(i, N) cnt[label(A[i])]++;
+    if(cnt[1] == 0){
+        if(cnt[0] <= cnt[2]+1) out("Yes");
+        else out("No");
+    }else{
+        if(cnt[0] <= cnt[2]) out("Yes");
+        else out("No");
     }
 }

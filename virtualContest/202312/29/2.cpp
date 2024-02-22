@@ -16,14 +16,21 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
+    ll N, K;cin>>N>>K;
+    vector<ll> c(N);
+    rep(i, N) cin>>c[i];
+    ll ans = -1;
+    map<ll,ll> mp;
+    for(int i = 0; i < N-K+1;i++){
+        if(i == 0){
+            rep(i, K) mp[c[i]]++;
         }
+        else{
+            mp[c[i-1]]--;
+            if(mp[c[i-1]] == 0) mp.erase(c[i-1]);
+            mp[c[i+K-1]]++;
+        }
+        chmax(ans, (ll)mp.size());
     }
+    out(ans);
 }

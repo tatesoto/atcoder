@@ -15,15 +15,35 @@ using Grid = vector<string>;
 const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
+/* encode: ランレングス圧縮を行う
+*/
+vector<pair<char, ll>> encode(const string& str) {
+    ll n = (ll)str.size();
+    vector<pair<char, ll>> ret;
+    for (ll l = 0; l < n;) {
+        ll r = l + 1;
+        for (; r < n && str[l] == str[r]; r++) {};
+        ret.push_back({str[l], r - l});
+        l = r;
+    }
+    return ret;
+}
+
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
+    ll N, K;cin>>N>>K;
+    string S;cin>>S;
+    vector<pair<char,ll>> v;
+    v=encode(S);
+    ll ans = -1;
+    ll right = 0;
+    rep(i, v.size()) {
+        ll res = 0;
+        ll cnt = 0;
+        while(right < v.size() && cnt < K) {
+            res += v[right].second;
+            right++;
+            
         }
     }
+    
 }

@@ -16,14 +16,22 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
-        }
+    ll N, M;cin>>N>>M;
+    vector<ll> A(M);
+    rep(i, M) cin>>A[i], A[i]--;
+    vector<ll> B(N, 0);
+    rep(i, N) B[i] = i;
+    vector<ll> destiny(N, 0);
+    rep(i, N) destiny[i] = i;
+    vector<ll> change(M, 0);
+    rep(i, M) {
+        if(B[A[i]] == 0) change[i] = B[A[i] + 1];
+        else if(B[A[i] + 1] == 0 ) change[i] = B[A[i]];
+        ll tmp = B[A[i]];
+        B[A[i]] = B[A[i] + 1];
+        B[A[i] + 1] = tmp;
+        destiny[B[A[i]]] = A[i];
+        destiny[B[A[i] + 1]] = A[i] + 1;
     }
+    rep(i, M) out(destiny[change[i]] + 1);
 }

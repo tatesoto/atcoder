@@ -16,14 +16,28 @@ const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    vector<ll> a = {7, -7};
-    vector<ll> b = {3, -3};
-    rep(i, 2){
-        rep(j, 2){
-            cout << a[i] << " / " << b[j] << " = ";
-            cout << a[i]/b[j];
-            cout << "...";
-            cout << a[i]%b[j] << endl;
+    ll N, M, K;cin>>N>>M>>K;
+    vector<ll> A(N), B(M);
+    rep(i, N) cin>>A[i];
+    rep(i, M) cin>>B[i];
+    vector<ll> sumA(N + 1, 0), sumB(M + 1, 0);
+    rep(i, N) sumA[i + 1] = sumA[i] + A[i];
+    rep(i, M) sumB[i + 1] = sumB[i] + B[i];
+    auto judge  = [&] (ll x) {
+        ll tmin = INF;
+        for(ll i = 0; i <= x; i++) {
+            if (i > N || x - i > M) continue;
+            ll t = sumA[i] + sumB[x-i];
+            chmin(tmin, t);
         }
+        return tmin <= K;
+    };
+    ll ok = 0;
+    ll ng = N+M+1;
+    while(ng - ok > 1) {
+        ll mid = (ok + ng) / 2;
+        if(judge(mid)) ok = mid;
+        else ng = mid;
     }
+    out(ok);
 }
