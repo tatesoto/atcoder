@@ -15,10 +15,21 @@ using Grid = vector<string>;
 const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
-int main() {
-    ll N;cin>>N;
-    vector<ll> a = {1, 2, 3, 4, 5};
-    vector<ll> b(1<<N);
-    auto iter = lower_bound(all(a), 6);
-    out(*iter);
+
+int main()  {
+    int N, K;cin>>N>>K;
+    vector<int> A(N);
+    for(int i = 0; i < N; i++) cin>>A[i];
+    vector<int> cntA(101, 0);
+    for(int i = 0; i < N; i++) {
+        cntA[A[i]]++;
+    }
+    int cnt = 0;
+    for(int i = 0; i < N; i++) {
+        int Aj = K - A[i];
+        if(Aj >= 0 && Aj <= 100) {
+            cnt += cntA[Aj];
+        }
+    }
+    out(cnt);
 }

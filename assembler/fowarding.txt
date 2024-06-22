@@ -1,0 +1,18 @@
+LI r1 1
+LI r2 2
+LI r3 3
+NOP
+NOP
+NOP
+NOP
+NOP
+ADD r1 r2
+ADD r2 r1
+ADD r1 r3
+ADD r3 r2
+ADD r2 r3
+ADD r3 r1
+OUT r1
+OUT r2
+OUT r3
+HLT

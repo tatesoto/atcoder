@@ -1,53 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define out(x) cout<<x<<endl
+#define ld long double
+#define out(x) cout<<x<<'\n'
 #define all(v) v.begin(),v.end()
-#define rep(i,n) for(ll i=0;i<(ll)(n);i++)
+#define rep(i,n) for(int i=0;i<(ll)(n);i++)
 template<class T> inline bool chmin(T& a, T b) {if(a > b){a = b; return true;} else {return false;}};
 template<class T> inline bool chmax(T& a, T b) {if(a < b){a = b; return true;} else {return false;}};
 const ll INF=(1LL<<60);
 const ll mod=998244353;
 using Graph = vector<vector<ll>>;
+using Network = vector<vector<pair<ll,ll>>>;
+using Grid = vector<string>;
+const vector<ll> dx = {0, -1, -1};
+const vector<ll> dy = {-1, 0, -1};
 
 int main() {
-    string s,t;cin>>s>>t;
-    ll ssiz=s.size();
-    ll tsiz=t.size();
-    s='0'+s;
-    t='1'+t;
-    vector<vector<ll>> dp(ssiz+1,vector<ll>(tsiz+1,-1));
-    string ans="";
-    rep(i,ssiz+1){
-        dp.at(i).at(0)=0;
-    }
-    rep(j,tsiz+1){
-        dp.at(0).at(j)=0;
-    }
-    for(ll i=1;i<=ssiz;i++){
-        for(ll j=1;j<=tsiz;j++){
-            if(s.at(i)==t.at(j)){
-                dp.at(i).at(j)=dp.at(i-1).at(j-1)+1;
-            }
-            else{
-                dp.at(i).at(j)=max(dp.at(i-1).at(j),dp.at(i).at(j-1));
+    string s, t;cin>>s>>t;
+    ll n = s.size();
+    ll m = t.size();
+    vector<vector<ll>> dp(n+1, vector<ll>(m+1, 0));
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            if(i == 0 || j == 0) continue;
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+            if(s[i-1] == t[j-1]) {
+                chmax(dp[i][j], dp[i-1][j-1] + 1);
             }
         }
     }
-    ll len=dp.at(ssiz).at(tsiz);
-    ll i=ssiz;
-    ll j=tsiz;
-    while(len>0){
-        if(s.at(i)==t.at(j)){
-            ans+=s.at(i);
+    int i = n;
+    int j = m;
+    string ans = "";
+    while(i > 0 && j > 0) {
+        if(dp[i-1][j] == dp[i][j]) {
             i--;
+            continue;
+        }
+        if(dp[i][j-1] == dp[i][j]) {
             j--;
-            len--;
+            continue;
         }
-        else if(dp.at(i-1).at(j)==dp.at(i).at(j)){
+        if(dp[i-1][j-1] + 1 == dp[i][j]) {
+            ans.push_back(s[i-1]);
             i--;
-        }
-        else{
             j--;
         }
     }

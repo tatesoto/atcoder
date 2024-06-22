@@ -1,0 +1,14 @@
+LI r1 2
+LI r2 3
+LI r3 4
+CMP r1 r2
+BE 1
+ADD r1 1
+CMP r1 r2
+BE 1
+ADD r1 1
+CMP r1 r3
+BE 1
+ADD r1 4
+OUT r1
+HLT

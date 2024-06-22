@@ -1,0 +1,105 @@
+LI r1 10
+LI r2 20
+LI r7 -1
+CMP r1 r2
+BLE 2
+ST r7 0(r0)
+HLT
+LI r1 20
+LI r2 10
+CMP r1 r2
+BLE 1
+B 2
+ST r7 1(r0)
+HLT
+LI r1 10
+LI r2 10
+CMP r1 r2
+BLE 2
+ST r7 2(r0)
+HLT
+LI r1 -10
+LI r2 -20
+CMP r1 r2
+BLE 1
+B 2
+ST r7 3(r0)
+HLT
+LI r1 -20
+LI r2 -10
+CMP r1 r2
+BLE 2
+ST r7 4(r0)
+HLT
+LI r1 -10
+LI r2 -10
+CMP r1 r2
+BLE 2
+ST r7 5(r0)
+HLT
+LI r1 10
+LI r2 -10
+CMP r1 r2
+BLE 1
+B 2
+ST r7 6(r0)
+HLT
+LI r1 -10
+LI r2 10
+CMP r1 r2
+BLE 2
+ST r7 7(r0)
+HLT
+LD r1 32(r0)
+LD r2 33(r0)
+CMP r1 r2
+BLE 2
+ST r7 8(r0)
+HLT
+LD r1 33(r0)
+LD r2 32(r0)
+CMP r1 r2
+BLE 1
+B 2
+ST r7 9(r0)
+HLT
+LD r1 32(r0)
+LD r2 32(r0)
+CMP r1 r2
+BLE 2
+ST r7 10(r0)
+HLT
+LD r1 34(r0)
+LD r2 35(r0)
+CMP r1 r2
+BLE 1
+B 2
+ST r7 11(r0)
+HLT
+LD r1 35(r0)
+LD r2 34(r0)
+CMP r1 r2
+BLE 2
+ST r7 12(r0)
+HLT
+LD r1 34(r0)
+LD r2 34(r0)
+CMP r1 r2
+BLE 2
+ST r7 13(r0)
+HLT
+LD r1 32(r0)
+LD r2 34(r0)
+CMP r1 r2
+BLE 1
+B 2
+ST r7 14(r0)
+HLT
+LD r1 34(r0)
+LD r2 32(r0)
+CMP r1 r2
+BLE 2
+ST r7 15(r0)
+HLT
+ST r7 16(r0)
+HLT

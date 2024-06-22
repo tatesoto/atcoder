@@ -2,31 +2,37 @@
 using namespace std;
 #define ll long long
 #define ld long double
-#define out(x) cout<<x<<endl
+#define out(x) cout<<x<<'\n'
 #define all(v) v.begin(),v.end()
-#define rep(i,n) for(ll i=0;i<(ll)(n);i++)
+#define rep(i,n) for(int i=0;i<(ll)(n);i++)
 template<class T> inline bool chmin(T& a, T b) {if(a > b){a = b; return true;} else {return false;}};
 template<class T> inline bool chmax(T& a, T b) {if(a < b){a = b; return true;} else {return false;}};
 const ll INF=(1LL<<60);
 const ll mod=998244353;
 using Graph = vector<vector<ll>>;
+using Network = vector<vector<pair<ll,ll>>>;
+using Grid = vector<string>;
+const vector<ll> dx = {0, 1, 0, -1};
+const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
     ll N;cin>>N;
-    vector<ld> p(N+1);
-    rep(i,N) cin>>p.at(i+1);
-    vector<vector<ld>> dp(N+1,vector<ld>(N+1,0));
-    dp.at(0).at(0)=1;
-    for(ll i=1;i<=N;i++){
-        for(ll j=0;j<=i;j++){
-            if(j==0) dp.at(i).at(j)=dp.at(i-1).at(j)*(1-p.at(i));
-            else dp.at(i).at(j)=dp.at(i-1).at(j-1)*p.at(i)+dp.at(i-1).at(j)*(1-p.at(i));
+    vector<ld> p(N);
+    rep(i, N) cin>>p[i];
+    vector<vector<ld>> dp(N, vector<ld>(N+1, 0));
+    dp[0][0] = 1-p[0];
+    dp[0][1] = p[0];
+    for(int i = 1; i < N; i++) {
+        rep(j, N+1) {
+            if(j-1 >= 0) dp[i][j] += dp[i-1][j-1] * p[i];
+            dp[i][j] += dp[i-1][j] * (1-p[i]);
         }
     }
-    ld ans=0;
-    rep(i,(N+1)/2){
-        ans+=dp.at(N).at(i);
+    ll mid = (N+1)/2;
+    ld ans = 0;
+    for(int j = mid; j <= N; j++) {
+        ans += dp[N-1][j];
     }
-    cout<<fixed<<setprecision(16);
-    out(1-ans);
+    cout << fixed << setprecision(10);
+    out(ans);
 }

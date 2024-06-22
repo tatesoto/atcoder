@@ -2,38 +2,40 @@
 using namespace std;
 #define ll long long
 #define ld long double
-#define out(x) cout<<x<<endl
+#define out(x) cout<<x<<'\n'
 #define all(v) v.begin(),v.end()
-#define rep(i,n) for(ll i=0;i<(ll)(n);i++)
+#define rep(i,n) for(int i=0;i<(ll)(n);i++)
 template<class T> inline bool chmin(T& a, T b) {if(a > b){a = b; return true;} else {return false;}};
 template<class T> inline bool chmax(T& a, T b) {if(a < b){a = b; return true;} else {return false;}};
 const ll INF=(1LL<<60);
 const ll mod=998244353;
 using Graph = vector<vector<ll>>;
-
-ll N;
-vector<vector<vector<ld>>> dp;
-ld dfs(ll i,ll j,ll k){
-    if(dp.at(i).at(j).at(k)!=-1) return dp.at(i).at(j).at(k);
-    if(i==0&&j==0&&k==0) return 0.0; 
-    ld res=0.0;
-    if(i>0) res+=dfs(i-1,j,k)*i;
-    if(j>0) res+=dfs(i+1,j-1,k)*j;
-    if(k>0) res+=dfs(i,j+1,k-1)*k;
-    res+=N;
-    res/=(ld)(i+j+k);
-    return dp.at(i).at(j).at(k)=res;
-} 
+using Network = vector<vector<pair<ll,ll>>>;
+using Grid = vector<string>;
+const vector<ll> dx = {0, 1, 0, -1};
+const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    cin>>N;
-    vector<ll> sushi_cnt={0,0,0,0};
-    dp.resize(N+1,vector<vector<ld>>(N+1,vector<ld>(N+1,-1)));
-    rep(i,N){
-        ll c;cin>>c;
-        sushi_cnt.at(c)++;
+    ll N;cin>>N;
+    vector<ll> cnt(4, 0);
+    rep(i, N) {
+        ll a;cin>>a;
+        cnt[a]++;
     }
-    dfs(sushi_cnt.at(1),sushi_cnt.at(2),sushi_cnt.at(3));
-    cout<<fixed<<setprecision(14);
-    out(dfs(sushi_cnt.at(1),sushi_cnt.at(2),sushi_cnt.at(3)));
+    vector<vector<vector<ld>>> dp(N+2, vector<vector<ld>>(N+2, vector<ld>(N+2, 0)));
+    dp[0][0][0] = 0;
+    rep(i, N+1) {
+        rep(j, N+1) {
+            rep(k, N+1) {
+                if(i == j && j == k && k == 0) continue;
+                if(i-1 >= 0) dp[i][j][k] += i*dp[i-1][j+1][k];
+                if(j-1 >= 0) dp[i][j][k] += j*dp[i][j-1][k+1];
+                if(k-1 >= 0) dp[i][j][k] += k*dp[i][j][k-1];
+                dp[i][j][k] += N;
+                dp[i][j][k] /= (i+j+k);
+            }
+        }
+    }
+    cout << fixed << setprecision(16);
+    out(dp[cnt[3]][cnt[2]][cnt[1]]);
 }

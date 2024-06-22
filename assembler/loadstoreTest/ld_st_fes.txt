@@ -1,0 +1,18 @@
+LI r1 1
+LI r2 2
+LI r3 3
+ST r1 0(r1)
+ST r2 0(r2)
+ST r3 0(r3)
+LD r1 0(r3)
+ST r1 4(r0)
+LD r2 2(r2)
+LD r4 -2(r2)
+ADD r2 r4
+LD r2 -1(r2)
+ST r2 -1(r2)
+ST r1 1(r0)
+NOP
+NOP
+NOP
+HLT

@@ -78,4 +78,5 @@
         "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
     },
     "code-runner.preserveFocus": false,
+    "C_Cpp.errorSquiggles": "disabled",
 }

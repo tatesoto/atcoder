@@ -1,0 +1,28 @@
+/*
+calculate sum of mem[l:r)
+
+sum = 0
+for(int i = l; i < r; i++) {
+    sum += mem[i]
+}
+mem[r] = sum
+*/
+/*
+r1:l
+r2:r
+r3:sum
+r4:i
+r5:mem[i]
+*/
+
+LI 1 2
+LI 2 10
+LI 3 0
+MOV 4 1
+CMP 2 4
+BLE 4
+LD 5 0(4)
+ADD 3 5
+ADDI 4 1
+B -6
+HLT

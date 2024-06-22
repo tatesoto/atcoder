@@ -1,0 +1,106 @@
+/*
+int main()  {
+    r[1] = left;   //left
+    r[2] = right;    //right
+    r[3] = r[2] - r[1] + 1;  //gap
+    r[4] = 1;   //swap flag
+    r[5] = 0;   
+    if(r[3] != 1) {
+        r[5] = 1;
+    }
+    r[5] = r[5] | r[4];
+    while(r[5] == 1) {
+        //r[3] = r[3] >> 1 + r[3] >> 2 + r[3] >> 4 = r[3]/1.3; 
+        r[6] = r[3] >> 1;
+        r[3] = r[6];
+        r[6] = r[6] >> 1;
+        r[3] += r[6];
+        r[6] = r[6] >> 4;
+        r[3] += r[6];
+        if(r[3] == 0) {
+            r[3] = 1;
+        }
+        r[4] = 0;
+        r[1] = left;
+        r[5] = r[2] - r[3] + 1;
+        while(r[1] < r[5]) {
+            r[6] = mem[r[1]];
+            r[1] += r[3];
+            r[7] = mem[r[1]];
+            r[1] -= r[3];
+            if(r[6] > r[7]) {
+                mem[r[1]] = r[7];
+                r[1] += r[3];
+                mem[r[1]] = r[6];
+                r[1] -= r[3];
+                r[4] = 1;
+            }
+            r[1]++;
+        }
+        r[5] = 0;
+        if(r[3] != 1) {
+            r[5] = 1;
+        }
+        r[5] = r[5] | r[4];
+    }
+    return 0;
+}
+*/
+
+LI 1, 1
+SLL 1, 10 
+LI 2, 2
+SLL 2, 10
+SUBI 2, 1
+MOV 3, 2
+SUB 3, 1
+ADDI 3, 1
+LI 4, 1
+LI 5, 0
+CMPI 3, 1
+BE 1
+LI 5, 1
+OR 5, 4
+CMPI 5, 1
+BNE 32
+MOV 6, 3
+SRA 6, 1
+MOV 3, 6
+SRA 6, 1
+ADD 3, 6
+SRA 6, 4
+ADD 3, 6
+CMPI 3, 0
+BNE 1
+LI 3, 1
+LI 4, 0
+LI 1, 1
+SLL 1, 10
+MOV 5, 2
+SUB 5, 3
+ADDI 5, 1
+CMP 5, 1
+BLE 13
+LD 6, 0(1)
+ADD 1, 3
+LD 7, 0(1)
+SUB 1, 3
+CMP 6, 7
+BLE 5
+ST 7, 0(1)
+ADD 1, 3
+ST 6, 0(1)
+SUB 1, 3
+LI 4, 1
+ADDI 1, 1
+B -15
+B -39
+HLT
+
+
+
+
+
+
+
+

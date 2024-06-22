@@ -1,0 +1,12 @@
+LI r1 2
+LI r3 1
+CMP r1 r0
+BE 3
+ADD r2 r3
+SUB r1 r3
+B -5
+ST r2 1(r0)
+NOP
+NOP
+NOP
+HLT
