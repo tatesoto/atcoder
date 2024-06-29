@@ -17,15 +17,10 @@ const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
     ll N;cin>>N;
-    ll A;cin>>A;
-    vector<ll> T(N);
-    rep(i, N) cin>>T[i];
-    vector<ll> ans(N);
-    queue<ll> q;
-    ll t = 0;
+    ll ans = 0;
     rep(i, N) {
-        if(q.empty()) {
-
-        }
+        string s;cin>>s;
+        if(s == "Takahashi") ans++;
     }
+    out(ans);
 }

@@ -15,17 +15,15 @@ using Grid = vector<string>;
 const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
-int main() {
-    ll N;cin>>N;
-    ll A;cin>>A;
-    vector<ll> T(N);
-    rep(i, N) cin>>T[i];
-    vector<ll> ans(N);
-    queue<ll> q;
-    ll t = 0;
-    rep(i, N) {
-        if(q.empty()) {
+int solve() {
+    ll n;cin>>n;
+    if(n==0) return 1;
+    string a;cin>>a;
+    string S;cin>>S;
+    string T;cin>>T;
+}
 
-        }
-    }
+int main() {
+    while(!solve()){}
+    return 0;
 }

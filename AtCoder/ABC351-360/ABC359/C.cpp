@@ -12,20 +12,33 @@ const ll mod=998244353;
 using Graph = vector<vector<ll>>;
 using Network = vector<vector<pair<ll,ll>>>;
 using Grid = vector<string>;
-const vector<ll> dx = {0, 1, 0, -1};
-const vector<ll> dy = {1, 0, -1, 0};
+// const vector<ll> dx = {0, 1, 0, -1};
+// const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    ll N;cin>>N;
-    ll A;cin>>A;
-    vector<ll> T(N);
-    rep(i, N) cin>>T[i];
-    vector<ll> ans(N);
-    queue<ll> q;
-    ll t = 0;
-    rep(i, N) {
-        if(q.empty()) {
-
-        }
+    ll sx, sy, tx, ty;cin>>sx>>sy>>tx>>ty;
+    if(sx > tx) {
+        swap(sx, tx);
+        swap(sy, ty);
     }
+    if(ty < sy) {
+        ty = -ty;
+        sy = -sy;
+    }
+    if(((sx+sy) % 2 + 2) % 2 == 1) {
+        sx--;
+    }
+    if(((tx+ty) % 2 + 2) % 2 == 1) {
+        tx--;
+    }
+    ll ans = 0;
+    ll dx = tx - sx;
+    ll dy = ty - sy;
+    if(dx <= dy) {
+        ans = dy;
+    }
+    else {
+        ans = dy + (dx-dy)/2;
+    }
+    out(ans);
 }

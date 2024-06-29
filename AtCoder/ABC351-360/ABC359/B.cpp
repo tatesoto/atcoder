@@ -17,15 +17,12 @@ const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
     ll N;cin>>N;
-    ll A;cin>>A;
-    vector<ll> T(N);
-    rep(i, N) cin>>T[i];
-    vector<ll> ans(N);
-    queue<ll> q;
-    ll t = 0;
-    rep(i, N) {
-        if(q.empty()) {
-
-        }
+    vector<ll> a(2*N);
+    rep(i, 2*N) cin>>a[i];
+    ll ans = 0;
+    rep(i, 2*N) {
+        if(i+2 >= 2*N) break;
+        if(a[i] == a[i+2]) ans++;
     }
+    out(ans);
 }

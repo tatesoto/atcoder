@@ -17,15 +17,32 @@ const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
     ll N;cin>>N;
-    ll A;cin>>A;
-    vector<ll> T(N);
-    rep(i, N) cin>>T[i];
-    vector<ll> ans(N);
-    queue<ll> q;
-    ll t = 0;
-    rep(i, N) {
-        if(q.empty()) {
-
+    vector<ll> H(N+1);
+    rep(i, N) cin>>H[i+1];
+    H[0] = INF;
+    vector<ll> lastmax(N+1, 0);
+    stack<ll> st;
+    st.push(0);
+    for(int i = 1; i <= N; i++) {
+        if(H[i] < H[st.top()]) {
+            lastmax[i] = st.top();
+            st.push(i);
         }
+        else {
+            while(H[i] >= H[st.top()]) {
+                st.pop();
+            }
+            lastmax[i] = st.top();
+            st.push(i);
+        }
+    }
+    vector<ll> dp(N+1, 0);
+    dp[0] = 0;
+    for(int i = 1; i <= N; i++) {
+        int d = lastmax[i];
+        dp[i] = (i-d)*H[i] + dp[d];
+    }
+    for(int i = 1; i <= N; i++) {
+        out(dp[i]+1);
     }
 }

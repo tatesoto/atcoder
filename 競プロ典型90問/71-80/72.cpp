@@ -11,41 +11,44 @@ const ll INF=(1LL<<60);
 const ll mod=998244353;
 using Graph = vector<vector<ll>>;
 using Network = vector<vector<pair<ll,ll>>>;
+using Grid = vector<string>;
+const vector<ll> dx = {0, 1, 0, -1};
+const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
-    int H, W;cin>>H>>W;
-    vector<char> G(H*W);
-    rep(i, H*W) cin>>G.at(i);
-    auto move = [&](int pos, int dir){
-        vector<int> dx = {0, 1, 0, -1}, dy = {1, 0, -1, 0};
-        int i = pos/W, j = pos%W;
-        int ni = i + dx.at(dir), nj = j + dy.at(dir);
-        if(ni < 0 || ni >= H || nj < 0 || nj >= W) return 100;
-        return ni*W + nj;  
-    };
-    ll ans = -1;
-    rep(s, H*W){
-        if(G.at(s) == '#') continue;
-        stack<vector<ll>> q;
-        q.push({0, s, 0});
-        ll max_cnt = 0;
-        while(!q.empty()){
-            auto p = q.top();q.pop();
-            ll cnt = p.at(0), pos = p.at(1), S = p.at(2);
-            rep(dir, 4){
-                int next = move(pos, dir);
-                if(next < 0 || next >= H*W) continue;
-                if(G.at(next) == '#') continue;
-                if(S>>next & 1) continue;
-                if(next == s) chmax(max_cnt, cnt+1);
-                else{
-                    S = S | 1<<next;
-                    q.push({cnt+1, next, S});
-
-                }
+    ll H, W;cin>>H>>W;
+    Grid G(H);
+    rep(i, H) cin>>G[i];
+    auto dfs = [&] (auto dfs, ll i, ll j, ll x, ll y, set<pair<ll,ll>> &s) ->  ll {
+        ll res = 0;
+        rep(dir, 4) {
+            ll nx = x + dx[dir];
+            ll ny = y + dy[dir];
+            if(nx == i && ny == j) {
+                ll siz = s.size();
+                chmax(res, siz);
+                continue;
             }
+            if(nx < 0 || nx >= H | ny < 0 || ny >= W) continue;
+            if(G[nx][ny] == '#') continue;
+            if(s.count({nx,ny})) continue;
+            s.insert({nx, ny});
+            chmax(res, dfs(dfs, i, j, nx, ny, s));
+            s.erase({nx, ny});
         }
-        if(max_cnt > 2) chmax(ans, max_cnt);
+        return res;
+    };
+
+
+    ll ans = 0;
+    rep(i, H) {
+        rep(j, W) {
+            if(G[i][j] == '#') continue;
+            set<pair<ll,ll>> s;
+            s.insert({i, j});
+            chmax(ans, dfs(dfs, i, j, i, j, s));
+        }
     }
-    out(ans);
+    if(ans <= 2) out(-1);
+    else out(ans);
 }
