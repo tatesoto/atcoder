@@ -15,24 +15,25 @@ using Grid = vector<string>;
 const vector<ll> dx = {0, 1, 0, -1};
 const vector<ll> dy = {1, 0, -1, 0};
 
-int main()  {
-    vector<ld> x1 = {5, 4, 5, 2, 5, 4, 7, 6, 8, 3};
-    vector<ld> x2 = {7, 8, 6, 5, 6, 7, 6, 4};
-    auto avg = [](vector<ld> x) {
-        ld sum = 0;
-        for (ld i : x) sum += i;
-        return sum / x.size();
-    };
-    auto var = [&](vector<ld> x) {
-        ld sum = 0;
-        ld a = avg(x);
-        for (ld i : x) sum += (i - a) * (i - a);
-        return sum / x.size();
-    };
-    auto t = [&](vector<ld> x1, vector<ld> x2) {
-        ld a = avg(x1), b = avg(x2);
-        ld c = var(x1), d = var(x2);
-        ld e = sqrt(c / x1.size() + d / x2.size());
-        return (a - b) / e;
-    };
+int main() {
+    string S, T;cin>>S>>T;
+    for(int w = 1; w < S.size(); w++) {
+        vector<string> s;
+        rep(i, S.size()) {
+            if(i % w == 0) s.push_back("");
+            s[i/w].push_back(S[i]);
+        }
+        for(int c = 1; c <= w; c++) {
+            string res = "";
+            rep(i, s.size()) {
+                if(s[i].size() < c) break;
+                res.push_back(s[i][c-1]);
+            }
+            if(res == T) {
+                out("Yes");
+                return 0;
+            }
+        }
+    }
+    out("No");
 }
