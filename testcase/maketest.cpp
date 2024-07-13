@@ -17,25 +17,21 @@ const vector<ll> dy = {1, 0, -1, 0};
 
 int main() {
     ofstream ofs("test.txt");
-    ofs << 100000 << endl;
-    set<string> used;
-    rep(i, 100000) {
+    string s = "";
+    rep(i, 500000) {
+        s += 'a' + rand() % 26;
+    }
+    ofs << s << endl;
+    ofs << 1000 << endl;
+    vector<string> used;
+    rep(i, 1000) {
         string s = "";
-        rep(i, 10) {
+        rep(i, 500) {
             s += 'a' + rand() % 26;
         }
-        if(used.count(s)) {
-            i--;
-            continue;
-        }
-        used.insert(s);
+        used.push_back(s);
     }
     for(string s : used) {
         ofs << s << endl;
-    }
-    ofs << 200000 << endl;
-    const ll n = 1e18;
-    rep(i, 2000000) {
-        ofs << n << endl;
     }
 }
