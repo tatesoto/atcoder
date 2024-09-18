@@ -30,7 +30,7 @@ struct mat {
     // 行列同士の演算
     mat& operator=(const mat& a){return *a;}
     mat& operator+=(const mat& a){assert(ncol == a.ncol && nrow == a.nrow);rep(i,nrow)rep(j,ncol)m[i][j] += a[i][j]; return *this;}
-    mat& operator-=(const mat& a){assert(ncol == a.ncol && nrow == a.nrow);rep(i,nrow)rep(j,ncol)m[i][j] -= a[i][j]; return *this;} 
+    mat& operator-=(const mat& a){assert(ncol == a.ncol && nrow == a.nrow);rep(i,nrow)rep(j,ncol)m[i][j] -= a[i][j]; return *this;}
     mat& operator*=(const mat& a){assert(ncol == a.nrow);mat<T> m2(nrow, a.ncol, 0);rep(i,nrow)rep(j,a.ncol)rep(k,ncol)m2[i][j] += m[i][k]*a[k][j];ncol = a.ncol;rep(i,nrow)m[i].resize(ncol);rep(i,nrow)rep(j,ncol)m[i][j] = m2[i][j]; return *this;}
     mat operator+(const mat& a) const { return mat(*this) += a;}
     mat operator-(const mat& a) const { return mat(*this) -= a;}
@@ -69,25 +69,31 @@ struct mat {
         }
         return ;
     }
+
+    void pow(ll N, ll MOD = INF){
+        mat<T> ans(nrow, ncol, 0);
+        rep(i, nrow) ans[i][i] = 1;
+        while(N>0){
+            if(N & 1){
+                ans*=(*this);
+                ans%=MOD;
+            }
+            (*this)*=(*this);
+            (*this)%=MOD;
+            N>>=1;
+        }
+        rep(i, nrow)rep(j, ncol) m[i][j] = ans[i][j];
+    }
 };
 
-//行列累乗
-mat<ll> mat_pow(mat<ll> A, ll N, ll MOD = INF){
-    ll siz = A.nrow;
-    mat<ll> ans(siz, siz, 0);
-    rep(i, siz) ans.at(i).at(i) = 1;
-    while(N>0){
-        if(N & 1){
-            ans*=A;
-            ans%=MOD;
-        }
-        A*=A;
-        A%=MOD;
-        N>>=1;
-    }
-    return ans;
-}
-
 int main() {
-    
+    ll N;cin>>N;
+    mat<ll> A(2, 2);
+    A[0][0] = 1;
+    A[0][1] = 1;
+    A[1][0] = 1;
+    A[1][1] = 0;
+    A.pow(N-1, mod);
+    out(A[0][0]);
+
 }
